@@ -2,7 +2,11 @@
 import tensorflow as tf
 import numpy as np
 from utils import *
+import os
 from tensorflow.examples.tutorials.mnist import input_data
+
+IS_TRAIN = os.getenv('IS_TRAIN')
+
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True) #以one-hot编码读取mnist数据集
 num_steps = 10000  #训练迭代步数
 class mnistmodel(object):
@@ -58,9 +62,9 @@ with tf.Session(graph= graph) as sess:
     tf.global_variables_initializer().run()
     saver = tf.train.Saver(max_to_keep=1)#创建saver对象来保存训练的模型
     max_acc = 0
-    is_train = True
     # training loop
-    if is_train:
+
+    if IS_TRAIN:
         for i in range(num_steps):
             lr = 0.001
             #调用mnist自带的next_batch函数生成大小为100的batch
