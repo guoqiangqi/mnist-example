@@ -8,7 +8,7 @@ import os
 IS_TRAIN = os.getenv('IS_TRAIN')
 
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True) #以one-hot编码读取mnist数据集
-num_steps = 10000  #训练迭代步数
+num_steps = 10  #训练迭代步数
 
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
@@ -97,7 +97,7 @@ with tf.Session(graph= graph) as sess:
                 max_acc = test_acc
                 saver.save(sess,'./ckpt/mnist.ckpt',global_step=i+1)
     #读取模型日志文件进行测试
-    elif:
+    elif IS_TRAIN == 'False':
         model_file = tf.train.latest_checkpoint('./ckpt/')
         saver.restore(sess,model_file)
         test_acc = sess.run(label_acc, feed_dict={model.images: mnist.test.images, model.labels: mnist.test.labels})
