@@ -2,13 +2,29 @@
 import tensorflow as tf
 import numpy as np
 from utils import *
-import os
 from tensorflow.examples.tutorials.mnist import input_data
+import os
 
 IS_TRAIN = os.getenv('IS_TRAIN')
 
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True) #以one-hot编码读取mnist数据集
 num_steps = 10000  #训练迭代步数
+
+def weight_variable(shape):
+  initial = tf.truncated_normal(shape, stddev=0.1)
+  return tf.Variable(initial)
+
+def bias_variable(shape):
+  initial = tf.constant(0.1, shape=shape)
+  return tf.Variable(initial)
+
+def conv2d(x, W):
+  return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+
+def max_pool_2x2(x):
+  return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
+            strides=[1, 2, 2, 1], padding='SAME')
+
 class mnistmodel(object):
     def __init__(self):
         self._build_model()
@@ -64,7 +80,7 @@ with tf.Session(graph= graph) as sess:
     max_acc = 0
     # training loop
 
-    if IS_TRAIN:
+    if IS_TRAIN == 'True':
         for i in range(num_steps):
             lr = 0.001
             #调用mnist自带的next_batch函数生成大小为100的batch
@@ -81,8 +97,10 @@ with tf.Session(graph= graph) as sess:
                 max_acc = test_acc
                 saver.save(sess,'./ckpt/mnist.ckpt',global_step=i+1)
     #读取模型日志文件进行测试
-    else:
+    elif:
         model_file = tf.train.latest_checkpoint('./ckpt/')
         saver.restore(sess,model_file)
         test_acc = sess.run(label_acc, feed_dict={model.images: mnist.test.images, model.labels: mnist.test.labels})
         print('test_acc: {}'.format(test_acc))
+    else:
+        print("You neend to set environment variable IS_TRAIN correctly!")
