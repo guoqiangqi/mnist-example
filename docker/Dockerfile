@@ -5,6 +5,6 @@ FROM tensorflow/tensorflow:2.6.1
 # RUN apk add g++
 # RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow
 
-COPY --from=0 /mninst-example /mnist-example
+COPY --from=0 /mnist-example /mnist-example
 WORKDIR /mnist-example
 CMD ["IS_TRAIN=True python", "mnist_train_eval.py"]
