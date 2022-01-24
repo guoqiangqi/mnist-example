@@ -7,4 +7,4 @@ FROM tensorflow/tensorflow:2.6.1
 
 COPY --from=0 /mnist-example /mnist-example
 WORKDIR /mnist-example
-CMD ["IS_TRAIN=True python", "mnist_train_eval.py"]
+# CMD ["IS_TRAIN=True python", "mnist_train_eval.py"]
