@@ -7,7 +7,7 @@ import os
 IS_TRAIN = os.getenv('IS_TRAIN')
 
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True) #以one-hot编码读取mnist数据集
-num_steps = 10  #训练迭代步数
+num_steps = 100  #训练迭代步数
 
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
