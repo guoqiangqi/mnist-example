@@ -7,7 +7,6 @@ import os
 IS_TRAIN = os.getenv('IS_TRAIN')
 
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True) #以one-hot编码读取mnist数据集
-num_steps = 10  #训练迭代步数
 
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
@@ -80,6 +79,9 @@ with tf.Session(graph= graph) as sess:
     # training loop
 
     if IS_TRAIN == 'True':
+
+        num_steps = int(os.getenv("NUM_STEPS"))
+
         for i in range(num_steps):
             lr = 0.001
             #调用mnist自带的next_batch函数生成大小为100的batch
