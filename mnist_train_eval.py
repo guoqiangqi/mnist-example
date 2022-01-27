@@ -63,7 +63,6 @@ with graph.as_default():
     model = mnistmodel()
     learning_rate = tf.placeholder(tf.float32,[])
     pred_loss = tf.reduce_mean(model.pred_loss)
-
 	
     
     #随机梯度下降对loss进行优化
